@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-gitops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-gitops
+  template:
+    metadata:
+      labels:
+        app: web-gitops
+    spec:
+      containers:
+        - name: web
+          image: registry.k8s.io/hpa-example:latest
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
